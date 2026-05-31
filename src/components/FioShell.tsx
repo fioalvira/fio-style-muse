@@ -1,4 +1,5 @@
-import { Link, Outlet, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
 const nav = [
   { to: "/wardrobe", label: "Wardrobe" },
@@ -8,7 +9,7 @@ const nav = [
   { to: "/profile", label: "Profile" },
 ] as const;
 
-export function FioShell() {
+export function FioShell({ children }: { children: ReactNode }) {
   const { location } = useRouterState();
   return (
     <div className="min-h-screen gradient-warm">
