@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { sampleOutfit } from "@/lib/fio-data";
 
-export const Route = createFileRoute("/_app/generate")({
+export const Route = createFileRoute("/generate")({
   head: () => ({ meta: [{ title: "Stylist — Fio" }] }),
   component: Generate,
 });

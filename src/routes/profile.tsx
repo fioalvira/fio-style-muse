@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { palette } from "@/lib/fio-data";
 
-export const Route = createFileRoute("/_app/profile")({
+export const Route = createFileRoute("/profile")({
   head: () => ({ meta: [{ title: "Profile — Fio" }] }),
   component: Profile,
 });

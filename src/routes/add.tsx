@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
-export const Route = createFileRoute("/_app/add")({
+export const Route = createFileRoute("/add")({
   head: () => ({ meta: [{ title: "Add a Piece — Fio" }] }),
   component: AddItem,
 });

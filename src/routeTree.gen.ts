@@ -9,23 +9,43 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WardrobeRouteImport } from './routes/wardrobe'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as InspirationsRouteImport } from './routes/inspirations'
+import { Route as GenerateRouteImport } from './routes/generate'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AppRouteImport } from './routes/_app'
+import { Route as AddRouteImport } from './routes/add'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppWardrobeRouteImport } from './routes/_app/wardrobe'
-import { Route as AppProfileRouteImport } from './routes/_app/profile'
-import { Route as AppInspirationsRouteImport } from './routes/_app/inspirations'
-import { Route as AppGenerateRouteImport } from './routes/_app/generate'
-import { Route as AppAddRouteImport } from './routes/_app/add'
-import { Route as AppOutfitIdRouteImport } from './routes/_app/outfit.$id'
+import { Route as OutfitIdRouteImport } from './routes/outfit.$id'
 
+const WardrobeRoute = WardrobeRouteImport.update({
+  id: '/wardrobe',
+  path: '/wardrobe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InspirationsRoute = InspirationsRouteImport.update({
+  id: '/inspirations',
+  path: '/inspirations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GenerateRoute = GenerateRouteImport.update({
+  id: '/generate',
+  path: '/generate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/_app',
+const AddRoute = AddRouteImport.update({
+  id: '/add',
+  path: '/add',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -33,75 +53,49 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppWardrobeRoute = AppWardrobeRouteImport.update({
-  id: '/wardrobe',
-  path: '/wardrobe',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppProfileRoute = AppProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppInspirationsRoute = AppInspirationsRouteImport.update({
-  id: '/inspirations',
-  path: '/inspirations',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppGenerateRoute = AppGenerateRouteImport.update({
-  id: '/generate',
-  path: '/generate',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppAddRoute = AppAddRouteImport.update({
-  id: '/add',
-  path: '/add',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppOutfitIdRoute = AppOutfitIdRouteImport.update({
+const OutfitIdRoute = OutfitIdRouteImport.update({
   id: '/outfit/$id',
   path: '/outfit/$id',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add': typeof AddRoute
   '/auth': typeof AuthRoute
-  '/add': typeof AppAddRoute
-  '/generate': typeof AppGenerateRoute
-  '/inspirations': typeof AppInspirationsRoute
-  '/profile': typeof AppProfileRoute
-  '/wardrobe': typeof AppWardrobeRoute
-  '/outfit/$id': typeof AppOutfitIdRoute
+  '/generate': typeof GenerateRoute
+  '/inspirations': typeof InspirationsRoute
+  '/profile': typeof ProfileRoute
+  '/wardrobe': typeof WardrobeRoute
+  '/outfit/$id': typeof OutfitIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add': typeof AddRoute
   '/auth': typeof AuthRoute
-  '/add': typeof AppAddRoute
-  '/generate': typeof AppGenerateRoute
-  '/inspirations': typeof AppInspirationsRoute
-  '/profile': typeof AppProfileRoute
-  '/wardrobe': typeof AppWardrobeRoute
-  '/outfit/$id': typeof AppOutfitIdRoute
+  '/generate': typeof GenerateRoute
+  '/inspirations': typeof InspirationsRoute
+  '/profile': typeof ProfileRoute
+  '/wardrobe': typeof WardrobeRoute
+  '/outfit/$id': typeof OutfitIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_app': typeof AppRouteWithChildren
+  '/add': typeof AddRoute
   '/auth': typeof AuthRoute
-  '/_app/add': typeof AppAddRoute
-  '/_app/generate': typeof AppGenerateRoute
-  '/_app/inspirations': typeof AppInspirationsRoute
-  '/_app/profile': typeof AppProfileRoute
-  '/_app/wardrobe': typeof AppWardrobeRoute
-  '/_app/outfit/$id': typeof AppOutfitIdRoute
+  '/generate': typeof GenerateRoute
+  '/inspirations': typeof InspirationsRoute
+  '/profile': typeof ProfileRoute
+  '/wardrobe': typeof WardrobeRoute
+  '/outfit/$id': typeof OutfitIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/auth'
     | '/add'
+    | '/auth'
     | '/generate'
     | '/inspirations'
     | '/profile'
@@ -110,8 +104,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/auth'
     | '/add'
+    | '/auth'
     | '/generate'
     | '/inspirations'
     | '/profile'
@@ -120,24 +114,56 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/_app'
+    | '/add'
     | '/auth'
-    | '/_app/add'
-    | '/_app/generate'
-    | '/_app/inspirations'
-    | '/_app/profile'
-    | '/_app/wardrobe'
-    | '/_app/outfit/$id'
+    | '/generate'
+    | '/inspirations'
+    | '/profile'
+    | '/wardrobe'
+    | '/outfit/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AppRoute: typeof AppRouteWithChildren
+  AddRoute: typeof AddRoute
   AuthRoute: typeof AuthRoute
+  GenerateRoute: typeof GenerateRoute
+  InspirationsRoute: typeof InspirationsRoute
+  ProfileRoute: typeof ProfileRoute
+  WardrobeRoute: typeof WardrobeRoute
+  OutfitIdRoute: typeof OutfitIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wardrobe': {
+      id: '/wardrobe'
+      path: '/wardrobe'
+      fullPath: '/wardrobe'
+      preLoaderRoute: typeof WardrobeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inspirations': {
+      id: '/inspirations'
+      path: '/inspirations'
+      fullPath: '/inspirations'
+      preLoaderRoute: typeof InspirationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/generate': {
+      id: '/generate'
+      path: '/generate'
+      fullPath: '/generate'
+      preLoaderRoute: typeof GenerateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -145,11 +171,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app': {
-      id: '/_app'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AppRouteImport
+    '/add': {
+      id: '/add'
+      path: '/add'
+      fullPath: '/add'
+      preLoaderRoute: typeof AddRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -159,76 +185,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/wardrobe': {
-      id: '/_app/wardrobe'
-      path: '/wardrobe'
-      fullPath: '/wardrobe'
-      preLoaderRoute: typeof AppWardrobeRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/profile': {
-      id: '/_app/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AppProfileRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/inspirations': {
-      id: '/_app/inspirations'
-      path: '/inspirations'
-      fullPath: '/inspirations'
-      preLoaderRoute: typeof AppInspirationsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/generate': {
-      id: '/_app/generate'
-      path: '/generate'
-      fullPath: '/generate'
-      preLoaderRoute: typeof AppGenerateRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/add': {
-      id: '/_app/add'
-      path: '/add'
-      fullPath: '/add'
-      preLoaderRoute: typeof AppAddRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/outfit/$id': {
-      id: '/_app/outfit/$id'
+    '/outfit/$id': {
+      id: '/outfit/$id'
       path: '/outfit/$id'
       fullPath: '/outfit/$id'
-      preLoaderRoute: typeof AppOutfitIdRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof OutfitIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface AppRouteChildren {
-  AppAddRoute: typeof AppAddRoute
-  AppGenerateRoute: typeof AppGenerateRoute
-  AppInspirationsRoute: typeof AppInspirationsRoute
-  AppProfileRoute: typeof AppProfileRoute
-  AppWardrobeRoute: typeof AppWardrobeRoute
-  AppOutfitIdRoute: typeof AppOutfitIdRoute
-}
-
-const AppRouteChildren: AppRouteChildren = {
-  AppAddRoute: AppAddRoute,
-  AppGenerateRoute: AppGenerateRoute,
-  AppInspirationsRoute: AppInspirationsRoute,
-  AppProfileRoute: AppProfileRoute,
-  AppWardrobeRoute: AppWardrobeRoute,
-  AppOutfitIdRoute: AppOutfitIdRoute,
-}
-
-const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AppRoute: AppRouteWithChildren,
+  AddRoute: AddRoute,
   AuthRoute: AuthRoute,
+  GenerateRoute: GenerateRoute,
+  InspirationsRoute: InspirationsRoute,
+  ProfileRoute: ProfileRoute,
+  WardrobeRoute: WardrobeRoute,
+  OutfitIdRoute: OutfitIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
