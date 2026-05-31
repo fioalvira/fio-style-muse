@@ -47,7 +47,7 @@ export function FioShell({ children }: { children: ReactNode }) {
         </div>
       </header>
       <main className="mx-auto max-w-7xl px-6 pb-24 pt-8">
-        <Outlet />
+        {children}
       </main>
       <nav className="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 md:hidden">
         <div className="glass shadow-float flex gap-1 rounded-full p-1.5">
