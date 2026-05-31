@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export const Route = createFileRoute("/_app/add")({
   head: () => ({ meta: [{ title: "Add a Piece — Fio" }] }),
-  component: AddItem;
+  component: AddItem,
 });
 
 function AddItem() {
