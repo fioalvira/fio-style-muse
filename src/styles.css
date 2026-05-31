@@ -1,13 +1,13 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
-/* Fio — premium AI wardrobe.
-   Mid-century modern × fashion editorial.
-   Blush, cream, coral, espresso. */
+/* Fio — playful mid-century modern.
+   Memphis × curved furniture × colored glass.
+   Pink, burnt orange, cherry, cobalt, forest, cream. */
 
 @font-face {
   font-family: "Fraunces Fallback";
@@ -15,11 +15,9 @@
   font-display: swap;
 }
 
-
-
 @theme inline {
   --font-display: "Fraunces", "Fraunces Fallback", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
 
   --radius-sm: 0.75rem;
   --radius-md: 1.25rem;
@@ -28,6 +26,8 @@
   --radius-2xl: 4rem;
   --radius-3xl: 6rem;
   --radius-blob: 60% 40% 55% 45% / 55% 45% 60% 40%;
+  --radius-blob-2: 38% 62% 41% 59% / 56% 36% 64% 44%;
+  --radius-pebble: 70% 30% 50% 50% / 45% 55% 45% 55%;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -43,55 +43,71 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-blush: var(--blush);
-  --color-cream: var(--cream);
-  --color-coral: var(--coral);
-  --color-espresso: var(--espresso);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
 
-  --shadow-soft: 0 20px 60px -20px oklch(0.45 0.08 30 / 0.18);
-  --shadow-float: 0 30px 80px -30px oklch(0.35 0.1 30 / 0.25);
-  --shadow-glass: 0 8px 32px oklch(0.45 0.08 30 / 0.12);
+  /* Memphis / mid-century palette */
+  --color-cream: var(--cream);
+  --color-pink: var(--pink);
+  --color-orange: var(--orange);
+  --color-cherry: var(--cherry);
+  --color-cobalt: var(--cobalt);
+  --color-forest: var(--forest);
+  --color-mustard: var(--mustard);
+  --color-ink: var(--ink);
+  /* Back-compat aliases used by other pages */
+  --color-blush: var(--pink);
+  --color-coral: var(--orange);
+  --color-espresso: var(--ink);
+
+  --shadow-soft: 0 18px 50px -22px oklch(0.3 0.08 30 / 0.28);
+  --shadow-float: 0 30px 70px -30px oklch(0.25 0.1 30 / 0.32);
+  --shadow-pop: 8px 8px 0 0 var(--ink);
+  --shadow-pop-cobalt: 8px 8px 0 0 var(--cobalt);
+  --shadow-pop-cherry: 6px 6px 0 0 var(--cherry);
 }
 
 :root {
-  /* Fio palette in oklch (mapped from spec hex) */
-  --blush: oklch(0.86 0.06 12);          /* #F6C7D5 */
-  --cream: oklch(0.985 0.012 80);        /* #FFF8F1 */
-  --coral: oklch(0.74 0.16 35);          /* #FF8E72 */
-  --espresso: oklch(0.27 0.03 40);       /* #3A2B28 */
+  /* Mid-century / Memphis palette */
+  --cream:   oklch(0.965 0.035 85);   /* warm cream #FBEFD8 */
+  --pink:    oklch(0.82 0.11 18);     /* warm pink   #F4A6B4 */
+  --orange:  oklch(0.68 0.18 45);     /* burnt orange #D96A2C */
+  --cherry:  oklch(0.55 0.22 25);     /* cherry red  #C8312B */
+  --cobalt:  oklch(0.45 0.19 260);    /* cobalt blue #2A3FB7 */
+  --forest:  oklch(0.45 0.10 155);    /* forest green #2E6B4F */
+  --mustard: oklch(0.82 0.14 88);     /* warm mustard #E8C24A */
+  --ink:     oklch(0.22 0.04 40);     /* deep ink    #2A1F1B */
 
   --background: var(--cream);
-  --foreground: var(--espresso);
+  --foreground: var(--ink);
 
-  --card: oklch(1 0 0);
-  --card-foreground: var(--espresso);
+  --card: oklch(0.99 0.015 80);
+  --card-foreground: var(--ink);
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: var(--espresso);
+  --popover: oklch(0.99 0.015 80);
+  --popover-foreground: var(--ink);
 
-  --primary: var(--espresso);
+  --primary: var(--ink);
   --primary-foreground: var(--cream);
 
-  --secondary: var(--blush);
-  --secondary-foreground: var(--espresso);
+  --secondary: var(--pink);
+  --secondary-foreground: var(--ink);
 
-  --muted: oklch(0.95 0.015 50);
-  --muted-foreground: oklch(0.5 0.04 35);
+  --muted: oklch(0.93 0.03 70);
+  --muted-foreground: oklch(0.45 0.05 40);
 
-  --accent: var(--coral);
+  --accent: var(--orange);
   --accent-foreground: var(--cream);
 
-  --destructive: oklch(0.6 0.22 25);
+  --destructive: var(--cherry);
   --destructive-foreground: var(--cream);
 
-  --border: oklch(0.9 0.02 40);
-  --input: oklch(0.93 0.018 40);
-  --ring: var(--coral);
+  --border: oklch(0.22 0.04 40 / 0.18);
+  --input: oklch(0.22 0.04 40 / 0.14);
+  --ring: var(--cobalt);
 
   --radius: 1.5rem;
 }
@@ -104,12 +120,20 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+  }
+  body {
+    /* warm grainy backdrop with floating color */
+    background-image:
+      radial-gradient(circle at 12% 18%, color-mix(in oklab, var(--pink) 55%, transparent), transparent 38%),
+      radial-gradient(circle at 88% 12%, color-mix(in oklab, var(--mustard) 50%, transparent), transparent 42%),
+      radial-gradient(circle at 78% 88%, color-mix(in oklab, var(--cobalt) 28%, transparent), transparent 45%),
+      radial-gradient(circle at 8% 92%, color-mix(in oklab, var(--forest) 22%, transparent), transparent 40%);
+    background-attachment: fixed;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: -0.02em;
   }
 }
@@ -118,35 +142,105 @@
   .font-display { font-family: var(--font-display); }
   .font-sans { font-family: var(--font-sans); }
 
+  /* Colored glass panels — like Sammy/Memphis glass blocks */
   .glass {
-    background: color-mix(in oklab, white 55%, transparent);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    background: color-mix(in oklab, white 50%, transparent);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
     border: 1px solid color-mix(in oklab, white 60%, transparent);
   }
-  .glass-blush {
-    background: color-mix(in oklab, var(--blush) 50%, transparent);
-    backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
+  .glass-pink {
+    background: color-mix(in oklab, var(--pink) 55%, transparent);
+    backdrop-filter: blur(24px) saturate(170%);
+    -webkit-backdrop-filter: blur(24px) saturate(170%);
+    border: 1px solid color-mix(in oklab, white 50%, transparent);
+  }
+  .glass-cobalt {
+    background: color-mix(in oklab, var(--cobalt) 40%, transparent);
+    backdrop-filter: blur(24px) saturate(170%);
+    -webkit-backdrop-filter: blur(24px) saturate(170%);
+    border: 1px solid color-mix(in oklab, white 35%, transparent);
+    color: var(--cream);
+  }
+  .glass-forest {
+    background: color-mix(in oklab, var(--forest) 45%, transparent);
+    backdrop-filter: blur(24px) saturate(170%);
+    -webkit-backdrop-filter: blur(24px) saturate(170%);
+    color: var(--cream);
+  }
+  .glass-mustard {
+    background: color-mix(in oklab, var(--mustard) 60%, transparent);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+  }
+  .glass-orange {
+    background: color-mix(in oklab, var(--orange) 55%, transparent);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    color: var(--cream);
   }
 
   .shadow-soft { box-shadow: var(--shadow-soft); }
   .shadow-float { box-shadow: var(--shadow-float); }
-  .shadow-glass { box-shadow: var(--shadow-glass); }
+  .shadow-pop { box-shadow: var(--shadow-pop); }
+  .shadow-pop-cobalt { box-shadow: var(--shadow-pop-cobalt); }
+  .shadow-pop-cherry { box-shadow: var(--shadow-pop-cherry); }
 
-  .blob {
-    border-radius: var(--radius-blob);
+  .blob { border-radius: var(--radius-blob); }
+  .blob-2 { border-radius: var(--radius-blob-2); }
+  .pebble { border-radius: var(--radius-pebble); }
+
+  .ring-ink { box-shadow: inset 0 0 0 2px var(--ink); }
+
+  /* Decorative patterns */
+  .pattern-dots {
+    background-image: radial-gradient(var(--ink) 1.4px, transparent 1.6px);
+    background-size: 14px 14px;
+  }
+  .pattern-grid {
+    background-image:
+      linear-gradient(var(--ink) 1px, transparent 1px),
+      linear-gradient(90deg, var(--ink) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.08;
+  }
+  .pattern-checker {
+    background-image:
+      linear-gradient(45deg, var(--ink) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--ink) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--ink) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--ink) 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  }
+  .wavy-divider {
+    --w: 22px;
+    --h: 10px;
+    height: var(--h);
+    background:
+      radial-gradient(circle at 50% 0, transparent var(--h), currentColor calc(var(--h) + 1px)) 0 0 / var(--w) calc(var(--h) * 2);
+    -webkit-mask: radial-gradient(circle at 50% calc(var(--h) + 1px), #0000 var(--h), #000 calc(var(--h) + 1px)) 0 0 / var(--w) calc(var(--h) * 2);
+            mask: radial-gradient(circle at 50% calc(var(--h) + 1px), #0000 var(--h), #000 calc(var(--h) + 1px)) 0 0 / var(--w) calc(var(--h) * 2);
   }
 
   .gradient-warm {
-    background: radial-gradient(ellipse at top left, color-mix(in oklab, var(--blush) 70%, transparent) 0%, transparent 55%),
-                radial-gradient(ellipse at bottom right, color-mix(in oklab, var(--coral) 35%, transparent) 0%, transparent 60%),
-                var(--cream);
+    background:
+      radial-gradient(ellipse at 12% 18%, color-mix(in oklab, var(--pink) 70%, transparent) 0%, transparent 45%),
+      radial-gradient(ellipse at 88% 8%, color-mix(in oklab, var(--mustard) 60%, transparent) 0%, transparent 45%),
+      radial-gradient(ellipse at 80% 90%, color-mix(in oklab, var(--cobalt) 40%, transparent) 0%, transparent 50%),
+      radial-gradient(ellipse at 8% 88%, color-mix(in oklab, var(--forest) 35%, transparent) 0%, transparent 45%),
+      var(--cream);
   }
 
   .editorial-number {
     font-family: var(--font-display);
     font-style: italic;
-    font-weight: 300;
+    font-weight: 500;
+  }
+
+  .sticker {
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    box-shadow: var(--shadow-pop);
   }
 }
