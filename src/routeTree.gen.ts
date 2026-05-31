@@ -9,38 +9,149 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppWardrobeRouteImport } from './routes/_app/wardrobe'
+import { Route as AppProfileRouteImport } from './routes/_app/profile'
+import { Route as AppInspirationsRouteImport } from './routes/_app/inspirations'
+import { Route as AppGenerateRouteImport } from './routes/_app/generate'
+import { Route as AppAddRouteImport } from './routes/_app/add'
+import { Route as AppOutfitIdRouteImport } from './routes/_app/outfit.$id'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppWardrobeRoute = AppWardrobeRouteImport.update({
+  id: '/wardrobe',
+  path: '/wardrobe',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppInspirationsRoute = AppInspirationsRouteImport.update({
+  id: '/inspirations',
+  path: '/inspirations',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppGenerateRoute = AppGenerateRouteImport.update({
+  id: '/generate',
+  path: '/generate',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAddRoute = AppAddRouteImport.update({
+  id: '/add',
+  path: '/add',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppOutfitIdRoute = AppOutfitIdRouteImport.update({
+  id: '/outfit/$id',
+  path: '/outfit/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/add': typeof AppAddRoute
+  '/generate': typeof AppGenerateRoute
+  '/inspirations': typeof AppInspirationsRoute
+  '/profile': typeof AppProfileRoute
+  '/wardrobe': typeof AppWardrobeRoute
+  '/outfit/$id': typeof AppOutfitIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/add': typeof AppAddRoute
+  '/generate': typeof AppGenerateRoute
+  '/inspirations': typeof AppInspirationsRoute
+  '/profile': typeof AppProfileRoute
+  '/wardrobe': typeof AppWardrobeRoute
+  '/outfit/$id': typeof AppOutfitIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_app/add': typeof AppAddRoute
+  '/_app/generate': typeof AppGenerateRoute
+  '/_app/inspirations': typeof AppInspirationsRoute
+  '/_app/profile': typeof AppProfileRoute
+  '/_app/wardrobe': typeof AppWardrobeRoute
+  '/_app/outfit/$id': typeof AppOutfitIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/add'
+    | '/generate'
+    | '/inspirations'
+    | '/profile'
+    | '/wardrobe'
+    | '/outfit/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/add'
+    | '/generate'
+    | '/inspirations'
+    | '/profile'
+    | '/wardrobe'
+    | '/outfit/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/auth'
+    | '/_app/add'
+    | '/_app/generate'
+    | '/_app/inspirations'
+    | '/_app/profile'
+    | '/_app/wardrobe'
+    | '/_app/outfit/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +159,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/wardrobe': {
+      id: '/_app/wardrobe'
+      path: '/wardrobe'
+      fullPath: '/wardrobe'
+      preLoaderRoute: typeof AppWardrobeRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/profile': {
+      id: '/_app/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/inspirations': {
+      id: '/_app/inspirations'
+      path: '/inspirations'
+      fullPath: '/inspirations'
+      preLoaderRoute: typeof AppInspirationsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/generate': {
+      id: '/_app/generate'
+      path: '/generate'
+      fullPath: '/generate'
+      preLoaderRoute: typeof AppGenerateRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/add': {
+      id: '/_app/add'
+      path: '/add'
+      fullPath: '/add'
+      preLoaderRoute: typeof AppAddRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/outfit/$id': {
+      id: '/_app/outfit/$id'
+      path: '/outfit/$id'
+      fullPath: '/outfit/$id'
+      preLoaderRoute: typeof AppOutfitIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppAddRoute: typeof AppAddRoute
+  AppGenerateRoute: typeof AppGenerateRoute
+  AppInspirationsRoute: typeof AppInspirationsRoute
+  AppProfileRoute: typeof AppProfileRoute
+  AppWardrobeRoute: typeof AppWardrobeRoute
+  AppOutfitIdRoute: typeof AppOutfitIdRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAddRoute: AppAddRoute,
+  AppGenerateRoute: AppGenerateRoute,
+  AppInspirationsRoute: AppInspirationsRoute,
+  AppProfileRoute: AppProfileRoute,
+  AppWardrobeRoute: AppWardrobeRoute,
+  AppOutfitIdRoute: AppOutfitIdRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
