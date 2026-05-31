@@ -1,4 +1,5 @@
-import { Link, Outlet, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
 const nav = [
   { to: "/wardrobe", label: "Wardrobe" },
@@ -8,7 +9,7 @@ const nav = [
   { to: "/profile", label: "Profile" },
 ] as const;
 
-export function FioShell() {
+export function FioShell({ children }: { children: ReactNode }) {
   const { location } = useRouterState();
   return (
     <div className="min-h-screen gradient-warm">
@@ -46,7 +47,7 @@ export function FioShell() {
         </div>
       </header>
       <main className="mx-auto max-w-7xl px-6 pb-24 pt-8">
-        <Outlet />
+        {children}
       </main>
       <nav className="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 md:hidden">
         <div className="glass shadow-float flex gap-1 rounded-full p-1.5">

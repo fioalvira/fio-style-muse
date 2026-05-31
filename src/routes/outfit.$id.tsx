@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { sampleOutfit } from "@/lib/fio-data";
 
-export const Route = createFileRoute("/_app/outfit/$id")({
+export const Route = createFileRoute("/outfit/$id")({
   head: () => ({ meta: [{ title: "Outfit — Fio" }] }),
   component: OutfitDetail,
 });

@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { FioShell } from "../components/FioShell";
 
 function NotFoundComponent() {
   return (
@@ -115,11 +116,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  const path = router.state.location.pathname;
+  const isChrome = path !== "/" && !path.startsWith("/auth");
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      {isChrome ? <FioShell><Outlet /></FioShell> : <Outlet />}
     </QueryClientProvider>
   );
 }

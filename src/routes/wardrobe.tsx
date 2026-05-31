@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { items, categories, palette } from "@/lib/fio-data";
 
-export const Route = createFileRoute("/_app/wardrobe")({
+export const Route = createFileRoute("/wardrobe")({
   head: () => ({ meta: [{ title: "My Wardrobe — Fio" }] }),
   component: Wardrobe,
 });
