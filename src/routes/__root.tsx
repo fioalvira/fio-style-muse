@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { FioShell } from "../components/FioShell";
+import { AuthProvider, useAuth } from "../hooks/use-auth";
 
 function NotFoundComponent() {
   return (
@@ -116,13 +117,34 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const router = useRouter();
-  const path = router.state.location.pathname;
-  const isChrome = path !== "/" && !path.startsWith("/auth");
-
   return (
     <QueryClientProvider client={queryClient}>
-      {isChrome ? <FioShell><Outlet /></FioShell> : <Outlet />}
+      <AuthProvider>
+        <RouterShell />
+      </AuthProvider>
     </QueryClientProvider>
   );
+}
+
+function RouterShell() {
+  const router = useRouter();
+  const path = router.state.location.pathname;
+  const isPublic = path === "/" || path.startsWith("/auth");
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !user && !isPublic) {
+      router.navigate({ to: "/auth" });
+    }
+  }, [loading, user, isPublic, router]);
+
+  if (isPublic) return <Outlet />;
+  if (loading || !user) {
+    return (
+      <div className="grid min-h-screen place-items-center text-ink/50 font-display">
+        Loading your atelier…
+      </div>
+    );
+  }
+  return <FioShell><Outlet /></FioShell>;
 }
