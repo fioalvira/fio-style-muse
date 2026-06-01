@@ -18,6 +18,7 @@ export function FioShell({ children }: { children: ReactNode }) {
     .toString()
     .charAt(0)
     .toUpperCase();
+  return (
     <div className="relative min-h-screen">
       {/* floating decorative objects */}
       <FloatingObjects />
