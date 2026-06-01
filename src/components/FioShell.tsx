@@ -1,5 +1,6 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { useAuth } from "@/hooks/use-auth";
 
 const nav = [
   { to: "/wardrobe", label: "Wardrobe", color: "bg-pink" },
@@ -11,6 +12,12 @@ const nav = [
 
 export function FioShell({ children }: { children: ReactNode }) {
   const { location } = useRouterState();
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const initial = (user?.user_metadata?.display_name || user?.email || "E")
+    .toString()
+    .charAt(0)
+    .toUpperCase();
   return (
     <div className="relative min-h-screen">
       {/* floating decorative objects */}
@@ -43,13 +50,24 @@ export function FioShell({ children }: { children: ReactNode }) {
                 );
               })}
             </nav>
-            <Link
-              to="/profile"
-              className="grid h-10 w-10 place-items-center rounded-full bg-cobalt text-cream font-display border-2 border-ink"
-              aria-label="Profile"
-            >
-              E
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                to="/profile"
+                className="grid h-10 w-10 place-items-center rounded-full bg-cobalt text-cream font-display border-2 border-ink"
+                aria-label="Profile"
+              >
+                {initial}
+              </Link>
+              <button
+                onClick={async () => {
+                  await signOut();
+                  navigate({ to: "/auth" });
+                }}
+                className="hidden md:inline-flex rounded-full border-2 border-ink bg-cream px-4 py-2 text-xs font-medium hover:bg-pink"
+              >
+                Sign out
+              </button>
+            </div>
           </div>
         </div>
       </header>

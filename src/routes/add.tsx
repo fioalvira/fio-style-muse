@@ -1,5 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/add")({
   head: () => ({ meta: [{ title: "Add a Piece — Fio" }] }),
@@ -7,32 +10,50 @@ export const Route = createFileRoute("/add")({
 });
 
 function AddItem() {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [analyzing, setAnalyzing] = useState(false);
-  const [analysis, setAnalysis] = useState<null | {
-    name: string;
-    category: string;
-    color: string;
-    fabric: string;
-    notes: string;
-  }>(null);
+  const [name, setName] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [done, setDone] = useState(false);
 
-  function handleFile(f: File) {
-    const url = URL.createObjectURL(f);
-    setPreview(url);
-    setAnalysis(null);
-    setAnalyzing(true);
-    setTimeout(() => {
-      setAnalyzing(false);
-      setAnalysis({
-        name: "Cream Silk Blouse",
-        category: "Tops",
-        color: "Cream",
-        fabric: "Silk charmeuse",
-        notes:
-          "A timeless transitional piece — pairs naturally with your warm coral trouser and espresso accessories.",
+  function pickFile(f: File) {
+    setFile(f);
+    setPreview(URL.createObjectURL(f));
+    setDone(false);
+  }
+
+  async function handleSave() {
+    if (!file || !user) return;
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop() || "jpg";
+      const path = `${user.id}/${crypto.randomUUID()}.${ext}`;
+
+      const { error: upErr } = await supabase.storage
+        .from("garments-original")
+        .upload(path, file, { cacheControl: "3600", upsert: false });
+      if (upErr) throw upErr;
+
+      const { data: pub } = supabase.storage.from("garments-original").getPublicUrl(path);
+
+      const { error: insErr } = await supabase.from("garments").insert({
+        user_id: user.id,
+        image_original_url: pub.publicUrl,
+        name: name.trim() || null,
       });
-    }, 1600);
+      if (insErr) throw insErr;
+
+      setDone(true);
+      toast.success("Piece added to your collection");
+      setTimeout(() => navigate({ to: "/wardrobe" }), 900);
+    } catch (e) {
+      const err = e as Error;
+      toast.error(err.message || "Upload failed");
+    } finally {
+      setUploading(false);
+    }
   }
 
   return (
@@ -41,7 +62,7 @@ function AddItem() {
         <span className="editorial-number text-coral">N°03 — The Intake</span>
         <h1 className="mt-2 font-display text-5xl md:text-6xl">Add a piece</h1>
         <p className="mt-3 max-w-xl text-espresso/70">
-          Photograph the piece against any background. Fio will analyse the fabric, colour and silhouette, and write it into your archive.
+          Photograph the piece against any background. We'll save it to your private archive.
         </p>
       </header>
 
@@ -58,7 +79,7 @@ function AddItem() {
               className="sr-only"
               onChange={(e) => {
                 const f = e.target.files?.[0];
-                if (f) handleFile(f);
+                if (f) pickFile(f);
               }}
             />
             {preview ? (
@@ -80,73 +101,49 @@ function AddItem() {
             <div className="flex items-center gap-3">
               <span className="grid h-9 w-9 place-items-center rounded-full bg-blush text-espresso font-display">f</span>
               <div>
-                <p className="text-xs uppercase tracking-[0.18em] text-espresso/50">Fio AI</p>
-                <p className="font-display text-lg leading-tight">Visual analysis</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-espresso/50">New piece</p>
+                <p className="font-display text-lg leading-tight">Save to your wardrobe</p>
               </div>
             </div>
 
             {!preview && (
               <p className="mt-6 text-espresso/60">
-                Upload a photograph to begin. Fio reads the silhouette, fabric and colour story.
+                Choose a photograph to begin.
               </p>
             )}
 
-            {analyzing && (
-              <div className="mt-6 space-y-3">
-                {["Reading silhouette…", "Sampling colour palette…", "Composing card…"].map(
-                  (s, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <span className="h-2 w-2 animate-pulse rounded-full bg-coral" />
-                      <span className="text-sm text-espresso/70">{s}</span>
-                    </div>
-                  )
-                )}
-              </div>
-            )}
-
-            {analysis && (
-              <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4">
-                <Stat label="Category" value={analysis.category} />
-                <Stat label="Colour" value={analysis.color} />
-                <Stat label="Fabric" value={analysis.fabric} />
-                <Stat label="Suggested name" value={analysis.name} />
-                <div className="col-span-2">
-                  <p className="text-xs uppercase tracking-[0.18em] text-espresso/50">Stylist notes</p>
-                  <p className="mt-2 text-espresso/80">{analysis.notes}</p>
-                </div>
-              </dl>
-            )}
-          </div>
-
-          {analysis && preview && (
-            <div className="overflow-hidden rounded-[2.5rem] bg-card shadow-float">
-              <div className="aspect-[4/5] overflow-hidden">
-                <img src={preview} alt="" className="h-full w-full object-cover" />
-              </div>
-              <div className="flex items-center justify-between p-5">
-                <div>
-                  <p className="font-display text-xl">{analysis.name}</p>
-                  <p className="text-xs uppercase tracking-[0.16em] text-espresso/50">
-                    {analysis.category} · {analysis.color}
-                  </p>
-                </div>
-                <button className="rounded-full bg-espresso px-5 py-2.5 text-sm text-cream shadow-soft">
-                  Save to wardrobe
+            {preview && !done && (
+              <div className="mt-6 space-y-4">
+                <label className="block">
+                  <span className="ml-1 text-xs uppercase tracking-[0.18em] text-espresso/50">
+                    Name (optional)
+                  </span>
+                  <input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="e.g. Cream silk blouse"
+                    className="mt-2 w-full rounded-full border-0 bg-white/80 px-5 py-3 text-espresso outline-none ring-1 ring-border focus:ring-2 focus:ring-coral"
+                  />
+                </label>
+                <button
+                  onClick={handleSave}
+                  disabled={uploading}
+                  className="w-full rounded-full bg-espresso px-5 py-3.5 text-cream shadow-soft transition hover:opacity-95 disabled:opacity-60"
+                >
+                  {uploading ? "Saving…" : "Save to wardrobe"}
                 </button>
               </div>
-            </div>
-          )}
+            )}
+
+            {done && (
+              <div className="mt-6 rounded-2xl bg-mustard/40 p-5 text-center">
+                <p className="font-display text-2xl">Piece added to your collection</p>
+                <p className="mt-1 text-sm text-espresso/60">Taking you to your wardrobe…</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt className="text-xs uppercase tracking-[0.18em] text-espresso/50">{label}</dt>
-      <dd className="mt-1 font-display text-lg">{value}</dd>
     </div>
   );
 }
