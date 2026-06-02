@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { sampleOutfit } from "@/lib/fio-data";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/outfit/$id")({
   head: () => ({ meta: [{ title: "Outfit — Fio" }] }),
@@ -8,49 +9,53 @@ export const Route = createFileRoute("/outfit/$id")({
 
 function OutfitDetail() {
   const { id } = Route.useParams();
+  const [outfit, setOutfit] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from("outfits")
+        .select("id, name, notes, created_at, outfit_items(garment_id, garments(id, name, category, primary_color, image_original_url, image_catalog_url))")
+        .eq("id", id)
+        .maybeSingle();
+      setOutfit(data);
+      setLoading(false);
+    })();
+  }, [id]);
+
+  if (loading) return <p className="text-ink/60">Loading…</p>;
+  if (!outfit)
+    return (
+      <div className="rounded-[2rem] border-2 border-ink bg-cream p-8 text-center shadow-pop">
+        <p>Outfit not found.</p>
+        <Link to="/generate" className="mt-3 inline-block underline">← Back to outfits</Link>
+      </div>
+    );
+
+  const pieces = (outfit.outfit_items ?? []).map((it: any) => it.garments).filter(Boolean);
+
   return (
-    <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
-      <div className="md:col-span-7">
-        <div className="relative overflow-hidden rounded-[3rem] shadow-float">
-          <img src={sampleOutfit.image} alt={sampleOutfit.title} className="w-full object-cover" loading="lazy" />
-          <span className="editorial-number absolute left-6 top-5 text-cream">N°0{id}</span>
-        </div>
-      </div>
-
-      <div className="md:col-span-5">
-        <Link to="/generate" className="text-sm text-espresso/60 hover:text-espresso">
-          ← Back to stylist
-        </Link>
-        <h1 className="mt-3 font-display text-5xl leading-tight">{sampleOutfit.title}</h1>
-
-        <div className="mt-6 rounded-[2rem] glass p-6">
-          <p className="editorial-number text-coral text-sm">Why this works</p>
-          <p className="mt-2 leading-relaxed text-espresso/80">{sampleOutfit.reasoning}</p>
-        </div>
-
-        <div className="mt-8">
-          <p className="text-xs uppercase tracking-[0.18em] text-espresso/50">The pieces</p>
-          <ul className="mt-3 space-y-3">
-            {sampleOutfit.pieces.map((p) => (
-              <li key={p.id} className="flex items-center gap-4 rounded-[1.5rem] bg-card p-3 shadow-glass">
-                <img src={p.image} alt={p.name} className="h-16 w-16 rounded-2xl object-cover" />
-                <div className="flex-1">
-                  <p className="font-display text-lg leading-tight">{p.name}</p>
-                  <p className="text-xs uppercase tracking-[0.16em] text-espresso/50">{p.category}</p>
-                </div>
-                <span className="h-5 w-5 rounded-full ring-1 ring-border" style={{ background: p.colorHex }} />
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="mt-8 flex gap-3">
-          <button className="flex-1 rounded-full bg-espresso py-4 text-cream shadow-soft">
-            Save this outfit
-          </button>
-          <button className="rounded-full glass px-6 py-4 text-espresso">↻</button>
-        </div>
-      </div>
+    <div className="space-y-8">
+      <Link to="/generate" className="text-sm text-ink/60 hover:text-ink">← Back to outfits</Link>
+      <header>
+        <h1 className="font-display text-5xl">{outfit.name ?? "Untitled"}</h1>
+        {outfit.notes && <p className="mt-3 max-w-xl text-ink/70">{outfit.notes}</p>}
+      </header>
+      <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        {pieces.map((p: any) => {
+          const img = p.image_catalog_url || p.image_original_url;
+          return (
+            <li key={p.id} className="rounded-[1.5rem] border-2 border-ink bg-cream p-3 shadow-pop">
+              <div className="aspect-[4/5] overflow-hidden rounded-xl border-2 border-ink bg-white">
+                {img && <img src={img} alt={p.name ?? ""} className="h-full w-full object-cover" />}
+              </div>
+              <p className="mt-2 font-display text-lg leading-tight">{p.name ?? "Untitled"}</p>
+              <p className="text-[10px] uppercase tracking-[0.18em] text-ink/60">{p.category ?? "—"}</p>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

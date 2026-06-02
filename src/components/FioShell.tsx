@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/use-auth";
 const nav = [
   { to: "/wardrobe", label: "Wardrobe", color: "bg-pink" },
   { to: "/add", label: "Add", color: "bg-mustard" },
-  { to: "/generate", label: "Stylist", color: "bg-cobalt text-cream" },
+  { to: "/generate", label: "Outfits", color: "bg-cobalt text-cream" },
   { to: "/inspirations", label: "Moodboard", color: "bg-orange text-cream" },
   { to: "/profile", label: "Profile", color: "bg-forest text-cream" },
 ] as const;
