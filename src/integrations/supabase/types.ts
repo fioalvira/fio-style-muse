@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      favorite_colors: {
+        Row: {
+          color_name: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          color_name: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          color_name?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       garments: {
         Row: {
           ai_description: string | null
@@ -179,6 +200,27 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id?: string
+        }
+        Relationships: []
+      }
+      user_aesthetics: {
+        Row: {
+          aesthetic_name: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          aesthetic_name: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          aesthetic_name?: string
+          created_at?: string
+          id?: string
+          user_id?: string
         }
         Relationships: []
       }
