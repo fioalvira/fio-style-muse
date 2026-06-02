@@ -40,54 +40,66 @@ export type Database = {
           ai_description: string | null
           category: string | null
           created_at: string
+          favorite: boolean
           formality_score: number | null
           id: string
           image_catalog_url: string | null
           image_original_url: string | null
+          last_worn: string | null
           material: string | null
           name: string | null
+          notes: string | null
           pattern: string | null
           primary_color: string | null
           season: string | null
           secondary_colors: string[] | null
           style_tags: string[] | null
           subcategory: string | null
+          times_worn: number
           user_id: string
         }
         Insert: {
           ai_description?: string | null
           category?: string | null
           created_at?: string
+          favorite?: boolean
           formality_score?: number | null
           id?: string
           image_catalog_url?: string | null
           image_original_url?: string | null
+          last_worn?: string | null
           material?: string | null
           name?: string | null
+          notes?: string | null
           pattern?: string | null
           primary_color?: string | null
           season?: string | null
           secondary_colors?: string[] | null
           style_tags?: string[] | null
           subcategory?: string | null
+          times_worn?: number
           user_id: string
         }
         Update: {
           ai_description?: string | null
           category?: string | null
           created_at?: string
+          favorite?: boolean
           formality_score?: number | null
           id?: string
           image_catalog_url?: string | null
           image_original_url?: string | null
+          last_worn?: string | null
           material?: string | null
           name?: string | null
+          notes?: string | null
           pattern?: string | null
           primary_color?: string | null
           season?: string | null
           secondary_colors?: string[] | null
           style_tags?: string[] | null
           subcategory?: string | null
+          times_worn?: number
           user_id?: string
         }
         Relationships: []
@@ -167,6 +179,7 @@ export type Database = {
           created_at: string
           id: string
           name: string | null
+          notes: string | null
           occasion: string | null
           user_id: string
         }
@@ -175,6 +188,7 @@ export type Database = {
           created_at?: string
           id?: string
           name?: string | null
+          notes?: string | null
           occasion?: string | null
           user_id: string
         }
@@ -183,6 +197,7 @@ export type Database = {
           created_at?: string
           id?: string
           name?: string | null
+          notes?: string | null
           occasion?: string | null
           user_id?: string
         }
