@@ -36,6 +36,11 @@ function Wardrobe() {
   const [favOnly, setFavOnly] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
+  const [filterCats, setFilterCats] = useState<Set<string>>(new Set());
+  const [filterColors, setFilterColors] = useState<Set<string>>(new Set());
+  const [filterMaterials, setFilterMaterials] = useState<Set<string>>(new Set());
+  const [filterSeasons, setFilterSeasons] = useState<Set<string>>(new Set());
+
   const load = useCallback(async () => {
     if (!user) return;
     setLoading(true);
