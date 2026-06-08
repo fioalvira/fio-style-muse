@@ -47,12 +47,15 @@ function Auth() {
   return (
     <div className="min-h-screen gradient-warm">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-6 py-12 md:grid-cols-2 md:py-20">
+        <Link
+          to="/"
+          aria-label="Back to home"
+          className="absolute left-6 top-6 z-10 grid h-11 w-11 place-items-center rounded-full border-2 border-ink bg-cream shadow-pop transition hover:-translate-x-0.5"
+        >
+          <span className="text-xl">←</span>
+        </Link>
         <div className="relative hidden overflow-hidden rounded-[3rem] shadow-float md:block">
           <img src={hero} alt="" className="h-full w-full object-cover" loading="lazy" />
-          <div className="absolute bottom-6 left-6 right-6 glass rounded-[2rem] p-5">
-            <p className="editorial-number text-coral text-sm">A note from Fio</p>
-            <p className="mt-1 font-display text-xl">"Dress as the person you want to be seen as."</p>
-          </div>
         </div>
 
         <div className="flex flex-col justify-center">
