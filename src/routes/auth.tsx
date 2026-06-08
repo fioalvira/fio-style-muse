@@ -1,8 +1,9 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import hero from "@/assets/hero-editorial.jpg";
+import heroAsset from "@/assets/moodboard-wall.jpg.asset.json";
 import { useAuth } from "@/hooks/use-auth";
 import { toast } from "sonner";
+const hero = heroAsset.url;
 
 export const Route = createFileRoute("/auth")({
   head: () => ({ meta: [{ title: "Enter Fio" }] }),
