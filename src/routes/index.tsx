@@ -1,8 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import hero from "@/assets/hero-editorial.jpg";
-import insp1 from "@/assets/insp-1.jpg";
-import insp2 from "@/assets/insp-2.jpg";
-import insp3 from "@/assets/insp-3.jpg";
+import heroAsset from "@/assets/colorful-wardrobe.jpg.asset.json";
+import insp2Asset from "@/assets/metallic-heels.jpg.asset.json";
+import insp3Asset from "@/assets/moodboard-wall.jpg.asset.json";
+const hero = heroAsset.url;
+const insp2 = insp2Asset.url;
+const insp3 = insp3Asset.url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
