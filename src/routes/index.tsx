@@ -138,36 +138,6 @@ function Landing() {
         </div>
       </section>
 
-      {/* Wavy divider */}
-      <div aria-hidden className="relative mx-auto max-w-7xl px-6">
-        <div className="wavy-divider text-ink/30" />
-      </div>
-
-      {/* Three "object" cards */}
-      <section className="relative mx-auto grid max-w-7xl grid-cols-1 gap-6 px-6 py-20 md:grid-cols-3">
-        <ObjectCard
-          tone="bg-pink"
-          n="N°02"
-          title="A closet that feels like a shelf"
-          body="Each piece is photographed, tagged and laid out like a small ceramic object. Browse it for the sheer pleasure."
-          img={insp1}
-        />
-        <ObjectCard
-          tone="bg-cobalt text-cream"
-          n="N°03"
-          title="A stylist who knows your moodboards"
-          body="Pin the rooms, outfits and colors you love. Fio reads the room — literally — and proposes outfits in your language."
-          img={insp2}
-          dark
-        />
-        <ObjectCard
-          tone="bg-mustard"
-          n="N°04"
-          title="Collectible outfits, not productivity"
-          body="Every recommendation arrives like an object card you can save, flip and revisit. Nothing here looks like a dashboard."
-          img={insp3}
-        />
-      </section>
     </div>
   );
 }
@@ -184,17 +154,3 @@ function Swatch({ hex, label }: { hex: string; label: string }) {
   );
 }
 
-function ObjectCard({
-  tone, n, title, body, img, dark,
-}: { tone: string; n: string; title: string; body: string; img: string; dark?: boolean }) {
-  return (
-    <article className={`relative rounded-[2.5rem] border-2 border-ink ${tone} p-6 shadow-pop transition hover:-translate-y-1`}>
-      <span className={`editorial-number text-sm ${dark ? "text-cream/80" : "text-ink/60"}`}>{n}</span>
-      <div className="mt-3 overflow-hidden rounded-[1.75rem] border-2 border-ink">
-        <img src={img} alt="" className="h-48 w-full object-cover" />
-      </div>
-      <h3 className="mt-4 font-display text-2xl leading-tight">{title}</h3>
-      <p className={`mt-2 text-sm ${dark ? "text-cream/80" : "text-ink/75"}`}>{body}</p>
-    </article>
-  );
-}
