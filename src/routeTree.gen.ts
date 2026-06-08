@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WardrobeRouteImport } from './routes/wardrobe'
+import { Route as StylistRouteImport } from './routes/stylist'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as InspirationsRouteImport } from './routes/inspirations'
 import { Route as GenerateRouteImport } from './routes/generate'
@@ -21,6 +22,11 @@ import { Route as OutfitIdRouteImport } from './routes/outfit.$id'
 const WardrobeRoute = WardrobeRouteImport.update({
   id: '/wardrobe',
   path: '/wardrobe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StylistRoute = StylistRouteImport.update({
+  id: '/stylist',
+  path: '/stylist',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/generate': typeof GenerateRoute
   '/inspirations': typeof InspirationsRoute
   '/profile': typeof ProfileRoute
+  '/stylist': typeof StylistRoute
   '/wardrobe': typeof WardrobeRoute
   '/outfit/$id': typeof OutfitIdRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/generate': typeof GenerateRoute
   '/inspirations': typeof InspirationsRoute
   '/profile': typeof ProfileRoute
+  '/stylist': typeof StylistRoute
   '/wardrobe': typeof WardrobeRoute
   '/outfit/$id': typeof OutfitIdRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/generate': typeof GenerateRoute
   '/inspirations': typeof InspirationsRoute
   '/profile': typeof ProfileRoute
+  '/stylist': typeof StylistRoute
   '/wardrobe': typeof WardrobeRoute
   '/outfit/$id': typeof OutfitIdRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/generate'
     | '/inspirations'
     | '/profile'
+    | '/stylist'
     | '/wardrobe'
     | '/outfit/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/generate'
     | '/inspirations'
     | '/profile'
+    | '/stylist'
     | '/wardrobe'
     | '/outfit/$id'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/generate'
     | '/inspirations'
     | '/profile'
+    | '/stylist'
     | '/wardrobe'
     | '/outfit/$id'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   GenerateRoute: typeof GenerateRoute
   InspirationsRoute: typeof InspirationsRoute
   ProfileRoute: typeof ProfileRoute
+  StylistRoute: typeof StylistRoute
   WardrobeRoute: typeof WardrobeRoute
   OutfitIdRoute: typeof OutfitIdRoute
 }
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/wardrobe'
       fullPath: '/wardrobe'
       preLoaderRoute: typeof WardrobeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stylist': {
+      id: '/stylist'
+      path: '/stylist'
+      fullPath: '/stylist'
+      preLoaderRoute: typeof StylistRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   GenerateRoute: GenerateRoute,
   InspirationsRoute: InspirationsRoute,
   ProfileRoute: ProfileRoute,
+  StylistRoute: StylistRoute,
   WardrobeRoute: WardrobeRoute,
   OutfitIdRoute: OutfitIdRoute,
 }
