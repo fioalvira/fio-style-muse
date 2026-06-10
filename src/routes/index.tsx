@@ -121,7 +121,7 @@ function Landing() {
             {/* Tiny inspiration */}
             <div className="absolute -right-4 bottom-10 w-28 rotate-3 rounded-2xl border-2 border-ink bg-pink p-2 shadow-pop">
               <img src={insp3} alt="" className="h-20 w-full rounded-xl object-cover" />
-              <p className="mt-1 text-center text-[10px] font-medium">saved ♡</p>
+              
             </div>
 
             {/* Squiggle */}
