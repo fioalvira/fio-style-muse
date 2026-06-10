@@ -58,6 +58,9 @@ function Landing() {
 
       <section className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 pt-14 pb-20 md:grid-cols-12 md:pt-20">
         <div className="md:col-span-7">
+          <span className="editorial-number rounded-full border-2 border-ink bg-mustard px-3 py-1 text-sm">
+            N°01 — The Curated Apartment
+          </span>
           <h1 className="mt-5 font-display text-[clamp(3rem,8.5vw,7rem)] font-medium leading-[0.92] tracking-tight">
             A wardrobe that{" "}
             <em className="not-italic">
@@ -104,9 +107,27 @@ function Landing() {
               <img src={hero} alt="A styled outfit" className="h-full w-full object-cover" />
             </div>
 
+            {/* Floating colored glass block — top right */}
+            <div className="glass-cobalt absolute -right-6 -top-6 w-44 rounded-[2rem] border-2 border-ink p-4 shadow-pop">
+              <p className="font-display text-2xl leading-tight">Today</p>
+              <p className="mt-1 text-xs uppercase tracking-[0.18em] opacity-90">Coral silk · Cream light</p>
+            </div>
+
+            {/* Inspiration polaroid */}
+            <div className="absolute -left-8 top-[40%] w-36 -rotate-6 rounded-2xl border-2 border-ink bg-cream p-2 shadow-pop-cherry">
+              <img src={insp2} alt="" className="h-32 w-full rounded-xl object-cover" />
+              <p className="mt-1 px-1 text-[11px] text-ink/70">moodboard · 03</p>
+            </div>
+
             {/* Pebble sticker */}
             <div className="sticker absolute -bottom-6 left-12 grid h-20 w-20 place-items-center rounded-full bg-mustard">
               <span className="editorial-number text-xl">N°01</span>
+            </div>
+
+            {/* Tiny inspiration */}
+            <div className="absolute -right-4 bottom-10 w-28 rotate-3 rounded-2xl border-2 border-ink bg-pink p-2 shadow-pop">
+              <img src={insp3} alt="" className="h-20 w-full rounded-xl object-cover" />
+              <p className="mt-1 text-center text-[10px] font-medium">saved ♡</p>
             </div>
 
             {/* Squiggle */}
