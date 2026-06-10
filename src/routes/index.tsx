@@ -105,10 +105,7 @@ function Landing() {
             </div>
 
             {/* Floating colored glass block — top right */}
-            <div className="glass-cobalt absolute -right-6 -top-6 w-44 rounded-[2rem] border-2 border-ink p-4 shadow-pop">
-              <p className="font-display text-2xl leading-tight">Today</p>
-              <p className="mt-1 text-xs uppercase tracking-[0.18em] opacity-90">Coral silk · Cream light</p>
-            </div>
+            <div className="glass-cobalt absolute -right-6 -top-6 w-44 rounded-[2rem] border-2 border-ink p-4 shadow-pop" />
 
             {/* Inspiration polaroid */}
             <div className="absolute -left-8 top-[40%] w-36 -rotate-6 rounded-2xl border-2 border-ink bg-cream p-2 shadow-pop-cherry">
