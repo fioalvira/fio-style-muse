@@ -58,9 +58,6 @@ function Landing() {
 
       <section className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 pt-14 pb-20 md:grid-cols-12 md:pt-20">
         <div className="md:col-span-7">
-          <span className="editorial-number rounded-full border-2 border-ink bg-mustard px-3 py-1 text-sm">
-            N°01 — The Curated Apartment
-          </span>
           <h1 className="mt-5 font-display text-[clamp(3rem,8.5vw,7rem)] font-medium leading-[0.92] tracking-tight">
             A wardrobe that{" "}
             <em className="not-italic">
