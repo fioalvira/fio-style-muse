@@ -110,7 +110,7 @@ function Landing() {
             {/* Inspiration polaroid */}
             <div className="absolute -left-8 top-[40%] w-36 -rotate-6 rounded-2xl border-2 border-ink bg-cream p-2 shadow-pop-cherry">
               <img src={insp2} alt="" className="h-32 w-full rounded-xl object-cover" />
-              <p className="mt-1 px-1 text-[11px] text-ink/70">moodboard · 03</p>
+              
             </div>
 
             {/* Pebble sticker */}
