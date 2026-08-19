@@ -1,163 +1,98 @@
-# Fio: Your Style Muse
+# Fio — Your Style Muse
 
-Create a premium AI wardrobe application called "Fio".
+Fio is a virtual wardrobe application designed to help users organize their clothes, save fashion inspiration and build outfits around their personal style.
 
-Design style:
+The project combines wardrobe management with a fashion-focused editorial experience, prioritizing visual identity and usability over traditional dashboard-style interfaces.
 
- Mid-century modern meets fashion editorial.
+## Features
 
- Soft feminine aesthetic.
+### Virtual Wardrobe
 
- Curved organic shapes everywhere.
+* Upload clothing items
+* Organize individual pieces
+* Browse your wardrobe visually
+* Filter items by category
+* Filter items by color
+* Search through saved pieces
 
- Rounded cards and bubble-like components.
+### Clothing Management
 
- Warm and playful but luxurious.
+* Add new clothing items
+* Preview uploaded images
+* Store individual garments separately
+* Edit and organize wardrobe content
 
- Inspired by Pinterest fashion moodboards.
+### Inspirations
 
- Inspired by modern beauty brands and fashion magazines.
+* Save fashion inspiration images
+* Browse inspiration through a visual masonry-style layout
+* Build a personal reference library for outfits and aesthetics
 
- High-end, collectible-object feeling.
+### Outfit Assistant
 
-Visual references:
+The project is being designed to include an AI-assisted outfit recommendation system.
 
- Curved furniture.
+The goal is for users to describe an occasion — for example:
 
- Colored glass blocks.
+> Dinner with friends
+> Job interview
+> Summer party
+> Casual university day
 
- Soft pinks.
+and receive outfit suggestions using clothes already available in their wardrobe.
 
- Cream.
+**This AI recommendation feature is currently in development and is not yet fully functional.**
 
- Warm orange accents.
+## Project Status
 
- Glossy transparent elements.
+**Work in progress**
 
- Fashion campaign layouts.
+The wardrobe management and visual experience are currently implemented.
 
- Magazine-style typography.
+The AI-assisted recommendation system is still under development.
 
-Color palette:
+## Tech Stack
 
- Blush pink (#F6C7D5)
+* TypeScript
+* React
+* CSS
+* Supabase
+* PL/pgSQL
 
- Soft cream (#FFF8F1)
+Additional technologies and integrations may be added as the project evolves.
 
- Warm coral (#FF8E72)
+## Design
 
- Deep espresso brown (#3A2B28)
+Fio was designed as a fashion product rather than a traditional productivity application.
 
- Frosted glass whites
+The visual direction combines:
 
-UI principles:
+* fashion editorial layouts
+* mid-century-inspired forms
+* organic shapes
+* soft feminine colors
+* large photography
+* rounded components
+* playful interactions
 
- Large imagery.
+The goal is to make the experience feel closer to browsing a fashion magazine or personal style archive than using a conventional wardrobe database.
 
- Very little visual clutter.
+## Current Direction
 
- Rounded corners everywhere.
+Future development includes:
 
- Floating cards.
+* AI-generated outfit recommendations
+* occasion-based outfit suggestions
+* stronger personalization
+* style preference modeling
+* improved relationship between wardrobe pieces and saved inspirations
 
- Soft shadows.
+## Author
 
- Glassmorphism used sparingly.
+**Fiorella Alvira**
 
- Editorial spacing.
+GitHub: [@fioalvira](https://github.com/fioalvira)
 
- Premium fashion feel.
+---
 
-Pages:
-
- Authentication
-
- Beautiful onboarding.
-
- Fashion-inspired visuals.
-
- My Wardrobe
-
- Grid of clothing items.
-
- Large images.
-
- Filter by category.
-
- Filter by color.
-
- Search.
-
- Add Clothing Item
-
- Upload image.
-
- Image preview.
-
- AI analysis section.
-
- Generated clothing card.
-
- Outfit Generator
-
- Text input:
-"What are you dressing for?"
-
- Generate outfit button.
-
- Display outfit recommendations.
-
- Outfit Detail
-
- Large outfit visualization.
-
- Reasoning behind recommendation.
-
- Save outfit.
-
- Inspirations
-
- Pinterest-like masonry layout.
-
- Save inspiration images.
-
- Associate inspirations with outfits.
-
- Profile
-
- Personal style preferences.
-
- Favorite colors.
-
- Favorite aesthetics.
-
-Important:
-
-This should feel like a luxury fashion product, not a productivity app.
-
-Avoid corporate UI.
-
-Avoid dashboard aesthetics.
-
-Prioritize beauty, emotion, and visual delight.
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/1f56fdbe-333e-4604-86b6-65a2bc8756e9).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+Built as an ongoing personal project.
